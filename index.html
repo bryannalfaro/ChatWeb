@@ -1,0 +1,658 @@
+<!--50 Criterio subjetivo-->
+<!--10 Parte inferior de pantalla-->
+<!--10 Limitar la cantidad de caracteres-->
+<!--10 Submit con Enter-->
+<!--30 Detectar link a imagen y crear preview-->
+<!--10 Auto refresh-->
+<!--20 Preservar el scroll-->
+
+<!--Referencia
+https://stackoverflow.com/questions/9714525/javascript-image-url-verify
+https://css-tricks.com/need-to-scroll-to-the-top-of-the-page/
+https://stackoverflow.com/questions/7035331/prevent-automatic-browser-scroll-on-refresh-->
+
+<html>
+
+<head> </head>
+
+<body>
+    <script>
+        const principal = document.createElement("div");
+        const titulo = document.createElement("h1");
+        const datos = document.createElement("div");
+        const contenedorMensajes = document.createElement("div");
+        contenedorMensajes.setAttribute("id", "contenedor");
+        const dark = document.createElement("button");
+        const white = document.createElement("button");
+        const img_link = /\w+\.(jpg|jpeg|gif|png|tiff|bmp|svg)$/gi;
+        const link = /\w+\.(jpg|jpeg|gif|png|tiff|bmp|svg)/;
+
+        titulo.append(dark);
+        titulo.append(white);
+
+
+        document.body.append(principal);
+        principal.append(titulo);
+        titulo.append("CHAT UVG APP");
+        principal.append(contenedorMensajes);
+
+        dark.style = `
+        background-image: url("dark.png");
+        height: 70%;
+        width: 3%;
+        margin: 5px;
+        background-repeat:no-repeat;
+        background-position:center;
+        background-size: 23px 23px;
+        border-radius: 50%;
+        background-color:green;
+        `;
+
+        white.style = `
+        background-image: url("sun.png");
+        height: 70%;
+        width: 3%;
+        margin: 5px;
+        background-repeat:no-repeat;
+        background-position:center;
+        background-size: 23px 23px;
+        border-radius: 50%;
+        `;
+
+        document.body.style = `
+      
+        margin:0;
+        width:100%;
+        background-image: url("Desktop.png");
+        background-size:cover;
+        height:100%;
+        `;
+
+        principal.style = `
+        width:100%;
+        height:100%;
+        display:flex;
+        flex-direction: column;
+        align-items:center;
+        color:white;
+        `;
+
+        contenedorMensajes.style = `
+        width:100%;
+        height:100%;
+        display:flex;
+        flex-direction: column;
+        overflow-y: scroll;
+        margin:2%;
+        align-items:center;
+        box-sizing: content-box;
+        
+        
+        `;
+        titulo.style = `
+        color:white;
+        width:100%;
+        display:flex;
+        justify-content: center;
+        align-items:center;
+        `;
+
+        white.addEventListener("click", () => {
+            document.body.style = `
+      
+            margin:0;
+            width:100%;
+            background-image: url("white.png");
+            background-size:cover;
+            height:100%;
+            `;
+
+            titulo.style = `
+            color:black;
+            width:100%;
+            display:flex;
+            justify-content: center;
+            align-items:center;
+            `;
+            white.style = `
+            background-image: url("sun.png");
+            height: 70%;
+            width: 3%;
+            margin: 5px;
+            background-repeat:no-repeat;
+            background-position:center;
+            background-size: 23px 23px;
+            border-radius: 50%;
+            background-color:green;
+            `;
+            dark.style = `
+            background-image: url("dark.png");
+            height: 70%;
+            width: 3%;
+            margin: 5px;
+            background-repeat:no-repeat;
+            background-position:center;
+            background-size: 23px 23px;
+            border-radius: 50%;
+            `;
+        });
+
+        dark.addEventListener("click", () => {
+            document.body.style = `
+            margin:0;
+            width:100%;
+            background-image: url("Desktop.png");
+            background-size:cover;
+            height:100%;
+            `;
+
+            titulo.style = `
+            color:white;
+            width:100%;
+            display:flex;
+            justify-content: center;
+            align-items:center;
+            `;
+
+            dark.style = `
+            background-image: url("dark.png");
+            height: 70%;
+            width: 3%;
+            margin: 5px;
+            background-repeat:no-repeat;
+            background-position:center;
+            background-size: 23px 23px;
+            border-radius: 50%;
+            background-color:green;
+            `;
+
+            white.style = `
+            background-image: url("sun.png");
+            height: 70%;
+            width: 3%;
+            margin: 5px;
+            background-repeat:no-repeat;
+            background-position:center;
+            background-size: 23px 23px;
+            border-radius: 50%;
+            
+            `;
+        });
+
+        function message(pos) {
+            fetch("http://ubeje.xyz:3000/messages").then((response) => response.json()).then((response) => {
+
+                response.map((item) => {
+
+                    if (item.sender == undefined & item.date == undefined) {
+                        let b = item.username
+                        let d = '2021-18-02: 2:00'
+                        item.sender = b
+                        item.date = d
+                    }
+
+                    if (item.sender == undefined) {
+                        let sender = "vacio"
+                        item.sender = sender
+                    }
+
+                    if (item.message == undefined) {
+                        let message = ""
+                        item.message = message
+                    }
+
+                    if (item.date == undefined) {
+                        let date = '2021-18-02: 2:00'
+                        item.date = date
+                    }
+
+                    const mensaje = document.createElement("div");
+                    const sender = document.createElement("h2");
+                    const message = document.createElement("p");
+                    const perfil_mensaje = document.createElement("div");
+                    const foto_perfil = document.createElement("div");
+                    //Evaluar si es el host
+                    if (JSON.stringify(item.sender) === '"Bryann"') {
+
+                        if (item.message.match(img_link)) {
+                            const imagen_perfil = document.createElement("img");
+                            imagen_perfil.src = "perfil.jpg";
+                            foto_perfil.append(imagen_perfil);
+
+                            imagenContent = document.createElement("img");
+                            imagenContent.src = item.message;
+                            imagenContent.style = `
+                        
+                                width: 40%;
+                                height: 70%;
+                                margin: 4px;
+                                `;
+
+                            sender.append(
+                                JSON.stringify(item.sender)[1].toUpperCase() +
+                                JSON.stringify(item.sender).slice(2, -1) +
+                                " on " +
+                                JSON.stringify(item.date).replace(/["']/g, "")
+                            );
+                            mensaje.append(sender);
+                            mensaje.append(imagenContent);
+
+                            perfil_mensaje.append(mensaje);
+                            perfil_mensaje.append(foto_perfil);
+                            contenedorMensajes.append(perfil_mensaje);
+                            mensaje.style = `
+                                width:80%;
+                                
+                                background:green;
+                                height:60%;
+                                margin: 4%;
+                                border-radius: 25px 25px 0px 25px;
+                                
+                                color:white;
+                                padding: 3px;
+                                display:flex;
+                                flex-direction:column;
+                                align-items:flex-end;
+                                box-shadow: 5px 0px 13px 2px gray;
+                                `;
+
+                            perfil_mensaje.style = `
+
+                                display:flex;
+                                flex-direction:row;
+                                width:90%;
+                                height:100%;
+                                
+                                padding: 3px;
+                                justify-content:center;
+                                align-items:center;
+                                `;
+
+                            imagen_perfil.style = `
+                                position:relative;
+                                width:100%;
+                                height:100%;
+                                
+                                border-radius:50%;
+                                `;
+
+                            foto_perfil.style = `
+                                width:5%;
+                                height:10%;
+                                
+                                position:relative;
+                                bottom:-140px;
+                                border-radius: 10%;
+                                `;
+                        } else {
+                            sender.append(
+                                JSON.stringify(item.sender)[1].toUpperCase() +
+                                JSON.stringify(item.sender).slice(2, -1) +
+                                " on " +
+                                JSON.stringify(item.date).replace(/["']/g, "")
+                            );
+
+                            const imagen_perfil = document.createElement("img");
+                            imagen_perfil.src = "perfil.jpg";
+                            foto_perfil.append(imagen_perfil);
+
+                            message.append(item.message);
+                            mensaje.append(sender);
+                            mensaje.append(message);
+
+                            perfil_mensaje.append(mensaje);
+                            perfil_mensaje.append(foto_perfil);
+                            contenedorMensajes.append(perfil_mensaje);
+                            mensaje.style = `
+                                width:80%;
+                                
+                                background:green;
+                                height:60%;
+                                margin: 4%;
+                                border-radius:25px 25px 0px 25px;
+                                
+                                color:white;
+                                padding: 3px;
+                                text-align:right;
+                                box-shadow: 5px 0px 13px 2px gray;
+                                `;
+
+                            perfil_mensaje.style = `
+                                display:flex;
+                                flex-direction:row;
+                                width:90%;
+                                height:100%;
+                                
+                                padding: 3px;
+                                justify-content:center;
+                                align-items:center;
+                                float:right;
+                                `;
+
+                            imagen_perfil.style = `
+                                position:relative;
+                                width:100%;
+                                height:100%;
+                                border-radius:50%;
+                                `;
+
+                            foto_perfil.style = `
+                                width:5%;
+                                height:25%;
+                                background:yellow;
+                                position:relative;
+                                bottom:-70px;
+                                border-radius: 50%;
+                                `;
+                        }
+
+
+                    } else {
+                        if (item.message.match(link)) {
+                            const imagen_perfil = document.createElement("img");
+                            imagen_perfil.src = "user.png";
+                            foto_perfil.append(imagen_perfil);
+
+
+                            imagenContent = document.createElement("img");
+                            imagenContent.src = item.message;
+                            imagenContent.style = `
+                                position:relative;
+                                width: 40%;
+                                height: 70%;
+                                margin: 4px;
+                                `;
+                            sender.append(
+                                JSON.stringify(item.sender)[1].toUpperCase() +
+                                JSON.stringify(item.sender).slice(2, -1) +
+                                " on " +
+                                JSON.stringify(item.date).replace(/["']/g, "")
+                            );
+                            mensaje.append(sender);
+                            mensaje.append(imagenContent);
+
+                            perfil_mensaje.append(foto_perfil);
+                            perfil_mensaje.append(mensaje);
+                            contenedorMensajes.append(perfil_mensaje);
+                            mensaje.style = `
+                                width:80%;
+                                
+                                background:rgb(164,36,59);
+                                height:60%;
+                                margin: 4%;
+                                border-radius: 25px 25px 25px 0px;
+                                
+                                color:white;
+                                padding: 3px;
+                                display:flex;
+                                flex-direction: column;
+                                box-shadow: 5px 0px 13px 2px gray;
+                                `;
+                            perfil_mensaje.style = `
+                                display:flex;
+                                flex-direction:row;
+                                width:90%;
+                                height:100%;
+                                
+                                padding: 3px;
+                                justify-content:center;
+                                align-items:center;
+                                `;
+
+                            imagen_perfil.style = `
+                                position:relative;
+                                width:100%;
+                                height:50%;
+                                
+                                bottom: -120px;
+                                `;
+
+                            foto_perfil.style = `
+                                width:5%;
+                                height:10%;
+                                
+                                position:relative;
+                                bottom:-50px;
+                                
+                                `;
+                        } else {
+
+                            sender.append(
+                                JSON.stringify(item.sender)[1].toUpperCase() +
+                                JSON.stringify(item.sender).slice(2, -1).trim() +
+                                " on " +
+                                JSON.stringify(item.date).replace(/["']/g, "")
+                            )
+                            if (item.message > 140) {
+                                message.append("");
+                            }
+                            const imagen_perfil = document.createElement("img");
+                            imagen_perfil.src = "user.png";
+
+                            foto_perfil.append(imagen_perfil);
+                            message.append(item.message);
+                            mensaje.append(sender);
+                            mensaje.append(message);
+
+                            perfil_mensaje.append(foto_perfil);
+                            perfil_mensaje.append(mensaje);
+                            contenedorMensajes.append(perfil_mensaje);
+                            mensaje.style = `
+                                width:80%;
+                                background:rgb(164,36,59);
+                                height:60%;
+                                margin: 4%;
+                                border-radius: 25px 25px 25px 0px;
+                                color:white;
+                                padding: 3px;
+                                word-break: break-all;
+                                box-shadow: 5px 0px 13px 2px gray;   
+                                
+                                `;
+
+                            perfil_mensaje.style = `
+                                display:flex;
+                                flex-direction:row;
+                                width:90%;
+                                height:100%;
+                                
+                                padding: 3px;
+                                justify-content:center;
+                                align-items:center;
+                                `;
+
+                            imagen_perfil.style = `
+                                position:relative;
+                                width:100%;
+                                height:100%;
+                                `;
+                            foto_perfil.style = `
+                                width:5%;
+                                height:10%;
+                                
+                                position:relative;
+                                bottom:-55px;
+                                `;
+                        }
+                    }
+                });
+
+
+                document.getElementById("contenedor").scrollTo(0, pos)
+
+            });
+
+
+
+        }
+
+        message();
+
+        const inputContent = document.createElement("div");
+        principal.append(inputContent);
+
+        inputContent.style = `
+        
+        width:70%;
+        height:60px;
+        position:sticky;
+        border-radius: 15px;
+        display: flex;
+        flex-direction:row;
+        padding: 0;
+        
+        `;
+
+        const buttonSend = document.createElement("button");
+        const buttonSendDiv = document.createElement("div");
+        const inputSendDiv = document.createElement("div");
+        const inputSend = document.createElement("input");
+
+        inputContent.append(buttonSendDiv);
+        inputContent.append(inputSendDiv);
+
+        buttonSendDiv.append(buttonSend);
+        inputSendDiv.append(inputSend);
+
+        buttonSendDiv.style = `
+        display:flex;
+        width: 11%;
+        align-items: center;
+        justify-content:center;
+        `;
+
+        inputSendDiv.style = `
+        width:89%;
+        
+        display:flex;
+        align-items: center;
+        `;
+
+        inputSend.style = `
+        width:100%;
+        height: 60%;
+        padding: 3px;
+        border-radius: 15px;
+        `;
+
+        buttonSend.style = `
+        width:50%;
+        height: 60%;
+        padding: 15px;
+        border-radius: 30%;
+        background-image: url("button.png");
+        background-size: 40% 40%;
+        background-position:center;
+        background-repeat: no-repeat;
+        `;
+
+        buttonSend.addEventListener("mouseover", () => {
+            buttonSend.style = `
+            width:50%;
+            height: 60%;
+            padding: 15px;
+            border-radius: 30%;
+            background-image: url("button2.png");
+            background-color:rgb(164,36,59) ;
+            background-size: 40% 40%;
+            background-position:center;
+            background-repeat: no-repeat;
+            transition: all 0.5s 0s ease;
+            border-style: solid;
+
+            `;
+        });
+
+        buttonSend.addEventListener("mouseleave", () => {
+            buttonSend.style = `
+            width:50%;
+            height: 60%;
+            padding: 15px;
+            border-radius: 30%;
+            background-image: url("button.png");
+            background-size: 40% 40%;
+            background-position:center;
+            background-repeat: no-repeat;
+            border-style: solid;
+            transition: all 0.5s 0s ease;
+            `;
+        });
+
+        inputSend.maxLength = 140; //LIMITAR EL INPUT A 140 CARACTERES
+        inputSend.placeholder = "Escribe un mensaje";
+
+        //EVENTOS
+
+        buttonSend.addEventListener("click", (event) => {
+
+            fetch('http://ubeje.xyz:3000/messages', {
+
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    sender: "Bryann",
+                    message: inputSend.value,
+                    date: '2021-02-16:03:56',
+                })
+            })
+
+            inputSend.value = ''
+            let pos = contenedorMensajes.scrollTop
+            setTimeout(() => {
+                let pos = contenedorMensajes.scrollTop
+                contenedorMensajes.innerHTML = ""
+
+                message(pos);
+                contenedorMensajes.scrollTop = pos
+
+                contenedorMensajes.scrollTo(0, pos)
+            }, 500)
+        });
+
+        inputSend.addEventListener("keydown", (evento) => {
+            if (evento.key === "Enter") {
+
+                fetch('http://ubeje.xyz:3000/messages', {
+
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        sender: "Bryann",
+                        message: inputSend.value,
+                        date: '2021-02-14:02:51',
+                    })
+                })
+
+                inputSend.value = "";
+                let pos = contenedorMensajes.scrollTop;
+
+                setTimeout(() => {
+                    let pos = contenedorMensajes.scrollTop
+                    contenedorMensajes.innerHTML = ""
+                    message(pos);
+
+                    contenedorMensajes.scrollTop = pos
+                    contenedorMensajes.scrollTo(0, pos)
+                }, 500);
+            }
+        });
+        //CADA 30 SEGUNDOS SE HACE REFRESH DEL SERVIDOR
+        let pos = contenedorMensajes.scrollTop
+
+        setInterval(() => {
+            let pos = contenedorMensajes.scrollTop
+            contenedorMensajes.innerHTML = "";
+
+            message(pos)
+            contenedorMensajes.scrollTop = pos
+            contenedorMensajes.scrollTo(0, pos)
+
+        }, 30000)
+    </script>
+</body>
+
+</html>
