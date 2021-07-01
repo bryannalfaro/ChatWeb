@@ -60,7 +60,7 @@ https://stackoverflow.com/questions/7035331/prevent-automatic-browser-scroll-on-
         `;
 
         document.body.style = `
-      
+
         margin:0;
         width:100%;
         background-image: url("Desktop.png");
@@ -86,8 +86,8 @@ https://stackoverflow.com/questions/7035331/prevent-automatic-browser-scroll-on-
         margin:2%;
         align-items:center;
         box-sizing: content-box;
-        
-        
+
+
         `;
         titulo.style = `
         color:white;
@@ -99,7 +99,7 @@ https://stackoverflow.com/questions/7035331/prevent-automatic-browser-scroll-on-
 
         white.addEventListener("click", () => {
             document.body.style = `
-      
+
             margin:0;
             width:100%;
             background-image: url("white.png");
@@ -175,12 +175,12 @@ https://stackoverflow.com/questions/7035331/prevent-automatic-browser-scroll-on-
             background-position:center;
             background-size: 23px 23px;
             border-radius: 50%;
-            
+
             `;
         });
 
         function message(pos) {
-            fetch("http://ubeje.xyz:3000/messages").then((response) => response.json()).then((response) => {
+            fetch("https://radiant-gorge-80719.herokuapp.com/messages").then((response) => response.json()).then((response) => {
 
                 response.map((item) => {
 
@@ -222,7 +222,7 @@ https://stackoverflow.com/questions/7035331/prevent-automatic-browser-scroll-on-
                             imagenContent = document.createElement("img");
                             imagenContent.src = item.message;
                             imagenContent.style = `
-                        
+
                                 width: 40%;
                                 height: 70%;
                                 margin: 4px;
@@ -242,12 +242,12 @@ https://stackoverflow.com/questions/7035331/prevent-automatic-browser-scroll-on-
                             contenedorMensajes.append(perfil_mensaje);
                             mensaje.style = `
                                 width:80%;
-                                
+
                                 background:green;
                                 height:60%;
                                 margin: 4%;
                                 border-radius: 25px 25px 0px 25px;
-                                
+
                                 color:white;
                                 padding: 3px;
                                 display:flex;
@@ -262,7 +262,7 @@ https://stackoverflow.com/questions/7035331/prevent-automatic-browser-scroll-on-
                                 flex-direction:row;
                                 width:90%;
                                 height:100%;
-                                
+
                                 padding: 3px;
                                 justify-content:center;
                                 align-items:center;
@@ -272,14 +272,14 @@ https://stackoverflow.com/questions/7035331/prevent-automatic-browser-scroll-on-
                                 position:relative;
                                 width:100%;
                                 height:100%;
-                                
+
                                 border-radius:50%;
                                 `;
 
                             foto_perfil.style = `
                                 width:5%;
                                 height:10%;
-                                
+
                                 position:relative;
                                 bottom:-140px;
                                 border-radius: 10%;
@@ -305,12 +305,12 @@ https://stackoverflow.com/questions/7035331/prevent-automatic-browser-scroll-on-
                             contenedorMensajes.append(perfil_mensaje);
                             mensaje.style = `
                                 width:80%;
-                                
+
                                 background:green;
                                 height:60%;
                                 margin: 4%;
                                 border-radius:25px 25px 0px 25px;
-                                
+
                                 color:white;
                                 padding: 3px;
                                 text-align:right;
@@ -322,7 +322,7 @@ https://stackoverflow.com/questions/7035331/prevent-automatic-browser-scroll-on-
                                 flex-direction:row;
                                 width:90%;
                                 height:100%;
-                                
+
                                 padding: 3px;
                                 justify-content:center;
                                 align-items:center;
@@ -376,12 +376,12 @@ https://stackoverflow.com/questions/7035331/prevent-automatic-browser-scroll-on-
                             contenedorMensajes.append(perfil_mensaje);
                             mensaje.style = `
                                 width:80%;
-                                
+
                                 background:rgb(164,36,59);
                                 height:60%;
                                 margin: 4%;
                                 border-radius: 25px 25px 25px 0px;
-                                
+
                                 color:white;
                                 padding: 3px;
                                 display:flex;
@@ -393,7 +393,7 @@ https://stackoverflow.com/questions/7035331/prevent-automatic-browser-scroll-on-
                                 flex-direction:row;
                                 width:90%;
                                 height:100%;
-                                
+
                                 padding: 3px;
                                 justify-content:center;
                                 align-items:center;
@@ -403,17 +403,17 @@ https://stackoverflow.com/questions/7035331/prevent-automatic-browser-scroll-on-
                                 position:relative;
                                 width:100%;
                                 height:50%;
-                                
+
                                 bottom: -120px;
                                 `;
 
                             foto_perfil.style = `
                                 width:5%;
                                 height:10%;
-                                
+
                                 position:relative;
                                 bottom:-50px;
-                                
+
                                 `;
                         } else {
 
@@ -446,8 +446,8 @@ https://stackoverflow.com/questions/7035331/prevent-automatic-browser-scroll-on-
                                 color:white;
                                 padding: 3px;
                                 word-break: break-all;
-                                box-shadow: 5px 0px 13px 2px gray;   
-                                
+                                box-shadow: 5px 0px 13px 2px gray;
+
                                 `;
 
                             perfil_mensaje.style = `
@@ -455,7 +455,7 @@ https://stackoverflow.com/questions/7035331/prevent-automatic-browser-scroll-on-
                                 flex-direction:row;
                                 width:90%;
                                 height:100%;
-                                
+
                                 padding: 3px;
                                 justify-content:center;
                                 align-items:center;
@@ -469,7 +469,7 @@ https://stackoverflow.com/questions/7035331/prevent-automatic-browser-scroll-on-
                             foto_perfil.style = `
                                 width:5%;
                                 height:10%;
-                                
+
                                 position:relative;
                                 bottom:-55px;
                                 `;
@@ -492,7 +492,7 @@ https://stackoverflow.com/questions/7035331/prevent-automatic-browser-scroll-on-
         principal.append(inputContent);
 
         inputContent.style = `
-        
+
         width:70%;
         height:60px;
         position:sticky;
@@ -500,7 +500,7 @@ https://stackoverflow.com/questions/7035331/prevent-automatic-browser-scroll-on-
         display: flex;
         flex-direction:row;
         padding: 0;
-        
+
         `;
 
         const buttonSend = document.createElement("button");
@@ -523,7 +523,7 @@ https://stackoverflow.com/questions/7035331/prevent-automatic-browser-scroll-on-
 
         inputSendDiv.style = `
         width:89%;
-        
+
         display:flex;
         align-items: center;
         `;
@@ -584,8 +584,15 @@ https://stackoverflow.com/questions/7035331/prevent-automatic-browser-scroll-on-
         //EVENTOS
 
         buttonSend.addEventListener("click", (event) => {
+            var today = new Date()
 
-            fetch('http://ubeje.xyz:3000/messages', {
+            var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+
+            var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+
+            var dateTime = date + ' ' + time;
+
+            fetch('https://radiant-gorge-80719.herokuapp.com/me', {
 
                 method: 'POST',
                 headers: {
@@ -594,7 +601,7 @@ https://stackoverflow.com/questions/7035331/prevent-automatic-browser-scroll-on-
                 body: JSON.stringify({
                     sender: "Bryann",
                     message: inputSend.value,
-                    date: '2021-02-16:03:56',
+                    date: dateTime,
                 })
             })
 
@@ -612,9 +619,16 @@ https://stackoverflow.com/questions/7035331/prevent-automatic-browser-scroll-on-
         });
 
         inputSend.addEventListener("keydown", (evento) => {
+             var today = new Date();
+
+            var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+
+            var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+
+            var dateTime = date + ' ' + time;
             if (evento.key === "Enter") {
 
-                fetch('http://ubeje.xyz:3000/messages', {
+                fetch('https://radiant-gorge-80719.herokuapp.com/me', {
 
                     method: 'POST',
                     headers: {
@@ -623,7 +637,7 @@ https://stackoverflow.com/questions/7035331/prevent-automatic-browser-scroll-on-
                     body: JSON.stringify({
                         sender: "Bryann",
                         message: inputSend.value,
-                        date: '2021-02-14:02:51',
+                        date: dateTime,
                     })
                 })
 
